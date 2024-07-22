@@ -7,12 +7,12 @@ export default function HeroSection() {
     <section className="bg-black bg-opacity-80 dark:bg-gray-900 absolute bottom-0 top-0 left-0 right-0">
       <div className="grid max-w-screen-xl px-4 py-10 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div className="mr-auto ml-6 mt-12 col-span-12 place-self-center lg:col-span-12">
-          <h1 className="max-w-5xl mb-4 text-8xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-8xl text-white">
-            Payments tool for software companies
+          <h1 className="max-w-5xl mb-4 text-6xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-8xl text-white">
+            Your Gateway to Campus Happenings
           </h1>
           <p className="max-w-2xl mb-6 font-medium text-gray-400 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-            From checkout to global sales tax compliance, companies around the
-            world use Flowbite to simplify their payment stack.
+            Your one-stop destination for real-time college updates, event news,
+            and notifications. Connect, engage, and succeed with CollegeConnect!
           </p>
           <a
             href="#"
@@ -59,9 +59,6 @@ export default function HeroSection() {
             Speak to Sales
           </a> */}
         </div>
-        {/* <div className="hidden lg:mt-0 lg:col-span-5 lg:flex ">
-          
-        </div> */}
       </div>
     </section>
   );

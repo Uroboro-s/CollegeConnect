@@ -2,10 +2,36 @@ import Link from "next/link";
 
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import UserDropdown from "./UserDropdown";
 
 export default async function Navigation() {
   return (
     <nav className="z-10 text-xl">
+      <ul className="flex gap-16 items-center">
+        <li>
+          <Link
+            href="/home"
+            className="hover:underline transition-colors font-semibold"
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/about"
+            className="hover:underline transition-colors font-semibold"
+          >
+            About
+          </Link>
+        </li>
+
+        <UserDropdown />
+      </ul>
+    </nav>
+  );
+}
+{
+  /* <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
         <li>
           <Link
@@ -30,6 +56,5 @@ export default async function Navigation() {
           <UserIcon className="h-6 w-6" />
         </Link>
       </ul>
-    </nav>
-  );
+    </nav> */
 }
