@@ -1,5 +1,5 @@
 import Image from "next/image";
-import "@/app/_styles/globals.css";
+
 import HeroSection from "./_components/HeroSection";
 
 import image from "../../public/VIT_bhopal1-750x375.webp";

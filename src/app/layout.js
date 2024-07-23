@@ -1,11 +1,16 @@
 import { Inter } from "next/font/google";
 
+import "@/app/_styles/globals.css";
+
 import Header from "@/app/_components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "VIT Events",
+  title: {
+    template: "%s | CollegeConnect",
+    default: "Welcome | CollegeConnect",
+  },
   description: "Updating people with VIT Bhopal events",
 };
 
