@@ -10,7 +10,7 @@ export default async function Navigation() {
       <ul className="flex gap-16 items-center">
         <li>
           <Link
-            href="/home"
+            href="/v1/home"
             className="hover:underline transition-colors font-semibold"
           >
             Home
@@ -18,7 +18,7 @@ export default async function Navigation() {
         </li>
         <li>
           <Link
-            href="/about"
+            href="/v1/about"
             className="hover:underline transition-colors font-semibold"
           >
             About

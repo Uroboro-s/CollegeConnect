@@ -1,6 +1,3 @@
-import Image from "next/image";
-
-import image from "../../../public/VIT_bhopal1-750x375.webp";
 import Link from "next/link";
 
 export default function HeroSection() {
@@ -22,7 +19,7 @@ export default function HeroSection() {
             Get started
           </Link>
           <Link
-            href="about"
+            href="/v1/about"
             className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
           >
             Learn more
