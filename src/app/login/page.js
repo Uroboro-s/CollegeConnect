@@ -82,6 +82,7 @@ function Page() {
             <form
               action={async () => {
                 "use server";
+                console.log("here");
                 await signIn("google", { redirectTo: "/v1" });
               }}
             >
