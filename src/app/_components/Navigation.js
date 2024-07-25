@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { UserIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
 import UserDropdown from "./UserDropdown";
 
 export default async function Navigation() {

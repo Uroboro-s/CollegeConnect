@@ -15,7 +15,7 @@ async function UserDropdown() {
             src={session.user.image}
             width={8}
             height={8}
-            className="h-9 w-9 rounded-full "
+            className="h-8 w-8 rounded-full "
             alt={session.user.name}
           />
         ) : (

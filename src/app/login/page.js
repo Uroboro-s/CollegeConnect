@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import svg from "../../../public/real_logo.svg";
 import { signIn } from "../_lib/auth";
+
+import svg from "../../../public/real_logo.svg";
 
 export const metadata = {
   title: "Login",
@@ -69,7 +70,7 @@ function Page() {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don&apos;t have an account?{" "}
                 <Link
-                  href="/login"
+                  href="/signup"
                   className="font-medium text-blue-700 hover:underline dark:text-primary-500"
                 >
                   Signup here
@@ -83,6 +84,7 @@ function Page() {
               action={async () => {
                 "use server";
                 console.log("here");
+
                 await signIn("google", { redirectTo: "/v1" });
               }}
             >

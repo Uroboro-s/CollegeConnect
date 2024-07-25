@@ -13,15 +13,21 @@ const authConfig = {
       return !!auth?.user;
     },
     async signIn({ user, account, profile }) {
-      return true;
+      if (user && user.email.includes("@vitbhopal.ac.in")) {
+        return true;
+      } else {
+        console.log("here2");
+        return false;
+      }
     },
-    // async session({ session, user }) {
-    //   const guest = await getGuest(session.user.email);
-    //   // console.log(guest);
-    //   session.user.guestId = guest.id;
-    //   return session;
-    // },
   },
+  // async session({ session, user }) {
+  //   const guest = await getGuest(session.user.email);
+  //   // console.log(guest);
+  //   session.user.guestId = guest.id;
+  //   return session;
+  // },
+
   pages: {
     signIn: "/login",
   },
