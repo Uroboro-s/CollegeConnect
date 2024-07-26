@@ -24,7 +24,7 @@ async function UserDropdown() {
       </summary>
       <ul className=" bg-gray-100 border  border-gray-300 rounded-box z-[1] shadow-inner rounded-md w-52  absolute top-10 -right-8">
         <li className="transition ease-in-out delay-150 duration-150 text-base p-3 rounded-t-md hover:bg-blue-700 hover:text-white">
-          <Link href="/settings">Settings</Link>
+          <Link href="/v1/settings">Settings</Link>
         </li>
         <hr />
         <li className="transition ease-in-out delay-150 duration-150 text-base p-3 rounded-b-md hover:bg-blue-700 hover:text-white">

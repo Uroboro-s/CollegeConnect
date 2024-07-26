@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { createUser, getUser } from "./data_service";
 
 const authConfig = {
   providers: [
@@ -14,9 +15,17 @@ const authConfig = {
     },
     async signIn({ user, account, profile }) {
       if (user && user.email.includes("@vitbhopal.ac.in")) {
-        return true;
+        try {
+          const existingUser = await getUser(user.email);
+
+          if (!existingUser) {
+            await createUser(user.name, user.email, user.image);
+          }
+          return true;
+        } catch {
+          return false;
+        }
       } else {
-        console.log("here2");
         return false;
       }
     },
