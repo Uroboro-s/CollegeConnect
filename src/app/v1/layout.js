@@ -16,7 +16,9 @@ export default function RootLayout({ children }) {
     <>
       <Header />
       <div className="flex-1 grid h-full">
-        <main className="mx-auto w-full h-full">{children}</main>
+        <main className="mx-auto w-full h-full overflow-hidden">
+          {children}
+        </main>
       </div>
     </>
   );
