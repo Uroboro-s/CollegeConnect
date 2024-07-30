@@ -13,8 +13,8 @@ export async function getUser(email) {
 }
 
 export async function createUser(name, email, image) {
-  const registrationNumber = name.split(" ").pop();
-  const fullName = name.split(" ").slice(0, -1).join(" ");
+  const registrationNumber = name.split(" ").pop().toUpperCase();
+  const fullName = name.split(" ").slice(0, -1).join(" ").toUpperCase();
   const newUser = {
     name: fullName,
     email: email,
@@ -29,6 +29,12 @@ export async function createUser(name, email, image) {
     console.error(error);
     throw new Error("User could not be created");
   }
+
+  return data;
+}
+
+export async function getEvents() {
+  let { data, error } = await supabase.from("Event").select("*");
 
   return data;
 }
