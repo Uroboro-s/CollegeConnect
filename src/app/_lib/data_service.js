@@ -35,9 +35,7 @@ export async function createUser(name, email, image) {
 }
 
 export async function getUpcomingEvents() {
-  const currentDateInMilliseconds = Date.now();
-
-  let currentDate = new Date(currentDateInMilliseconds).toISOString();
+  let currentDate = new Date(Date.now()).toISOString();
   console.log(currentDate);
 
   let { data, error } = await supabase
@@ -45,6 +43,27 @@ export async function getUpcomingEvents() {
     .select("*")
     .gte("start_date", currentDate)
     .order("start_date");
+
+  if (error) {
+    console.log(error);
+    throw new Error("Upcoming events failed to fetch!");
+  }
+
+  return data;
+}
+
+//is registrable really a word???
+export async function getRegistrableEvents() {
+  let currentDate = new Date(Date.now()).toISOString();
+  console.log(currentDate);
+
+  let { data, error } = await supabase
+    .from("Event")
+    .select("*")
+    .gte("reg_deadline", currentDate)
+    .order("reg_deadline");
+
+  console.log(data);
 
   if (error) {
     console.log(error);

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 function EventSlider({ category, events }) {
   return (
     <div className="flex flex-col bg-white m-auto p-auto">
@@ -14,6 +16,14 @@ function EventSlider({ category, events }) {
               <li className="inline-block px-3" key={event.id}>
                 <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
                   {event.name}
+                  {event.id == 6 && (
+                    <Image
+                      src={event.image}
+                      width={48}
+                      height={48}
+                      alt="genai"
+                    />
+                  )}
                 </div>
               </li>
             ))}
