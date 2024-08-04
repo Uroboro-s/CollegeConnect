@@ -85,7 +85,7 @@ function Page() {
                 "use server";
                 console.log("here");
 
-                await signIn("google", { redirectTo: "/v1" });
+                await signIn("google", { redirectTo: "/v1/home" });
               }}
             >
               <button
