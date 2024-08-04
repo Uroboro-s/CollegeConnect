@@ -34,13 +34,14 @@ export async function createUser(name, email, image) {
   return data;
 }
 
-export async function getUpcomingEvents() {
+export async function getUpcomingEvents(category) {
   let currentDate = new Date(Date.now()).toISOString();
-  console.log(currentDate);
+  // console.log(currentDate);
 
   let { data, error } = await supabase
     .from("Event")
     .select("*")
+    .eq("category", category)
     .gte("start_date", currentDate)
     .order("start_date");
 
@@ -55,7 +56,7 @@ export async function getUpcomingEvents() {
 //is registrable really a word???
 export async function getRegistrableEvents() {
   let currentDate = new Date(Date.now()).toISOString();
-  console.log(currentDate);
+  // console.log(currentDate);
 
   let { data, error } = await supabase
     .from("Event")

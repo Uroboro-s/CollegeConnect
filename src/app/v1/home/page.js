@@ -37,8 +37,8 @@ async function Page() {
 
   return (
     <div className="w-full">
-      <Searchbar />
-      {/* <Suspense fallback={<Spinner />}> */}
+      {/* Announcemnt hero section in caase of mega events like AdVitya?? */}
+      {/* <Searchbar /> */}
       <EventSlider category="Register Now!" events={eventsToRegister} />
       <EventSlider category="Sports" events={sports} />
       <EventSlider category="Entertainment" events={entertainment} />
@@ -46,7 +46,6 @@ async function Page() {
       <EventSlider category="Hackathons" events={hackathons} />
       <EventSlider category="Workshops" events={workshops} />
       <EventSlider category="Games" events={games} />
-      {/* </Suspense> */}
     </div>
   );
 }
