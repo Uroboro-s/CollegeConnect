@@ -16,6 +16,14 @@ export default async function Navigation() {
         </li>
         <li>
           <Link
+            href="/v1/events"
+            className="hover:underline transition-colors font-semibold"
+          >
+            Events
+          </Link>
+        </li>
+        <li>
+          <Link
             href="/v1/about"
             className="hover:underline transition-colors font-semibold"
           >
