@@ -35,18 +35,16 @@ export async function createUser(name, email, image) {
 }
 
 export async function getUpcomingEvents(category) {
-  console.log(category);
   let currentDate = new Date(Date.now()).toISOString();
-  // console.log(currentDate);
 
   let { data, error } = await supabase
     .from("Event")
-    .select("*")
+    .select("name, image, id")
     .eq("category", category)
     // .gte("start_date", currentDate) //enable this for actual use
     .order("start_date");
 
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     console.log(error);
@@ -63,9 +61,26 @@ export async function getRegistrableEvents() {
 
   let { data, error } = await supabase
     .from("Event")
-    .select("*")
+    .select("name, image, id")
     .gte("reg_deadline", currentDate)
     .order("reg_deadline");
+
+  // console.log(data);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Upcoming events failed to fetch!");
+  }
+
+  return data;
+}
+
+export async function getEvent(id) {
+  let { data, error } = await supabase
+    .from("Event")
+    .select("*, description")
+    .eq("id", id)
+    .single();
 
   console.log(data);
 
@@ -75,4 +90,35 @@ export async function getRegistrableEvents() {
   }
 
   return data;
+}
+
+export async function getBannerName(id) {
+  console.log(id);
+  let { data, error } = await supabase
+    .from("Banner")
+    .select("name")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Banner name failed to fetch!");
+  }
+
+  return data;
+}
+
+export async function getClub(id) {
+  let { data, error } = await supabase
+    .from("Club")
+    .select("name")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Club name failed to fetch!");
+  }
+
+  return { clubName: data.name };
 }
