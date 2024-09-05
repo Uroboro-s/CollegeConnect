@@ -35,6 +35,7 @@ export async function createUser(name, email, image) {
 }
 
 export async function getUpcomingEvents(category) {
+  console.log(category);
   let currentDate = new Date(Date.now()).toISOString();
   // console.log(currentDate);
 
@@ -42,8 +43,10 @@ export async function getUpcomingEvents(category) {
     .from("Event")
     .select("*")
     .eq("category", category)
-    .gte("start_date", currentDate)
+    // .gte("start_date", currentDate) //enable this for actual use
     .order("start_date");
+
+  console.log(data);
 
   if (error) {
     console.log(error);
