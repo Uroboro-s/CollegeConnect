@@ -9,7 +9,7 @@ export async function getUser(email) {
     .eq("email", email)
     .single();
 
-  console.log(data);
+  // console.log(data);
   //no error here, we handle the possibilty of error in sign-in callback
   return data;
 }
@@ -91,6 +91,20 @@ export async function getEvent(id) {
   }
 
   return data;
+}
+
+export async function getAllEventsPaginated() {
+  let { data, count, error } = await supabase
+    .from("Event")
+    .select("*", { count: "exact" })
+    .range(0, 9);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Events couldn't be loaded!");
+  }
+
+  return { data, count };
 }
 
 export async function getBannerName(id) {
