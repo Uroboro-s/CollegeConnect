@@ -28,15 +28,17 @@ const authConfig = {
         }
       } else {
         return false;
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
       }
     },
+    async session({ session, user }) {
+      const currUser = await getUser(session.user.email);
+      // console.log(currUser);
+      session.user.id = currUser.id;
+      return session;
+    },
   },
-  // async session({ session, user }) {
-  //   const guest = await getGuest(session.user.email);
-  //   // console.log(guest);
-  //   session.user.guestId = guest.id;
-  //   return session;
-  // },
 
   pages: {
     signIn: "/login",

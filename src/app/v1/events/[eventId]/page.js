@@ -1,5 +1,8 @@
-import { getBannerName, getClub, getEvent } from "@/app/_lib/data_service";
+import { auth } from "@/app/_lib/auth";
 import Image from "next/image";
+
+import { getBannerName, getClub, getEvent } from "@/app/_lib/data_service";
+import { TrashIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
 
 export async function generateMetadata({ params }) {
   // const { name } = await getCabin(params.cabinId);
@@ -8,7 +11,10 @@ export async function generateMetadata({ params }) {
 
 async function Page({ params }) {
   const eventId = params.eventId;
-  console.log(eventId);
+  // console.log(eventId);
+
+  const session = await auth();
+  console.log(session);
 
   const {
     name,
@@ -47,6 +53,10 @@ async function Page({ params }) {
           <p>Register at: {reg_link}</p>
           <p>Registration cost: {reg_cost}</p>
           <p>Last date to register: {reg_deadline}</p>
+          <div className="flex flex-1 px-4 py-4">
+            {<TrashIcon className="h-12 w-12 fill-red-600 m-4" />}
+            <WrenchScrewdriverIcon className="h-12 w-12 fill-yellow-600 m-4" />
+          </div>
         </div>
       </section>
       <section className="px-4 py-4">
@@ -69,6 +79,7 @@ async function Page({ params }) {
 
 //have to add link to the bannerObj.name(AdVITya) part
 //have to add link to the clubname part
+//add link at reg_link part
 //add suspense inside updates after establishing websocket connection
 
 export default Page;

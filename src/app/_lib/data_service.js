@@ -9,6 +9,7 @@ export async function getUser(email) {
     .eq("email", email)
     .single();
 
+  console.log(data);
   //no error here, we handle the possibilty of error in sign-in callback
   return data;
 }
@@ -82,7 +83,7 @@ export async function getEvent(id) {
     .eq("id", id)
     .single();
 
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     console.log(error);
