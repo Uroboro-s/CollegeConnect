@@ -93,11 +93,14 @@ export async function getEvent(id) {
   return data;
 }
 
-export async function getAllEventsPaginated() {
+export async function getAllEventsPaginated(currentPage, PAGE_SIZE) {
+  const from = (currentPage - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
   let { data, count, error } = await supabase
     .from("Event")
     .select("*", { count: "exact" })
-    .range(0, 9);
+    .range(from, to);
 
   if (error) {
     console.log(error);
