@@ -23,12 +23,12 @@ export default function Searchbar({ placeholder }) {
   }, 1000);
 
   return (
-    <div className="relative flex flex-1 flex-shrink-0">
+    <div className="relative flex flex-shrink-0 h-10">
       <label htmlFor="search" className="sr-only">
         Search
       </label>
       <input
-        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        className="peer block w-2/6 min-w-96 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);

@@ -41,22 +41,29 @@ function Pagination({ count, PAGE_SIZE }) {
   if (pageCount <= 1) return null;
 
   return (
-    <div className="w-full flex items-center justify-between">
-      <p className="text-2xl ml-3">
-        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+    <div className="w-full flex justify-between px-16">
+      <p className="text-lg">
+        Showing (<span>{(currentPage - 1) * PAGE_SIZE + 1}</span>-
         <span>
           {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
-        </span>{" "}
-        of <span>{count}</span> results
+        </span>
+        ) out of <span>{count}</span> results
       </p>
 
-      <div className="flex flex-1 gap-2">
+      <div className="flex">
         <button onClick={prevPage} disabled={currentPage === 1}>
-          <ChevronLeftIcon className="w-8 h-8" /> <span>Previous</span>
+          <ChevronLeftIcon className="w-8 h-8" />
+          {/* <span>Previous</span> */}
         </button>
+        <input
+          type="text"
+          value={currentPage}
+          className="w-8 h-8 text-center"
+          readOnly
+        />
 
         <button onClick={nextPage} disabled={currentPage === pageCount}>
-          <span>Next</span>
+          {/* <span>Next</span> */}
           <ChevronRightIcon className="w-8 h-8" />
         </button>
       </div>

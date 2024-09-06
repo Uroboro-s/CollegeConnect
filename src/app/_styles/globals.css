@@ -40,6 +40,20 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  table,
+  th,
+  td {
+    border: 2px solid white;
+    border-collapse: collapse;
+    border-radius: 7px;
+    padding: 7px;
+  }
+
+  th,
+  td {
+    background-color: #dbeafe;
+  }
 }
 /* For data picker */
 .rdp {
