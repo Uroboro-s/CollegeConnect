@@ -19,13 +19,13 @@ async function Page({ searchParams }) {
       <div className="flex justify-end items-center p-6">
         <Searchbar />
         <Link
-          href="/createevent"
+          href="/v1/events/createevent"
           className="h-full p-2 rounded-md ml-4 bg-slate-50 hover:bg-blue-700 hover:text-white"
         >
           Create event
         </Link>
       </div>
-      <div className="flex flex-col justify-center p-8">
+      <div className="flex flex-col justify-center p-6">
         {/* {events.map((event, index) => {
           return (
             <li key={event.id} className="flex">
@@ -37,7 +37,7 @@ async function Page({ searchParams }) {
             </li>
           );
         })} */}
-        <table className="border border-1 text-xl">
+        <table className="border border-1 text-lg">
           <thead>
             <tr>
               <th className="w-[100px]">S.No.</th>
