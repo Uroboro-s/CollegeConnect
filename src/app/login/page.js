@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { signIn } from "../_lib/auth";
-
 import svg from "../../../public/real_logo.svg";
+import { signInAction } from "../_lib/actions";
 
 export const metadata = {
   title: "Login",
@@ -80,14 +79,7 @@ function Page() {
           </div>
           <hr className="mx-8" />
           <div className="flex items-center justify-center mt-5 mb-5 dark:bg-gray-800">
-            <form
-              action={async () => {
-                "use server";
-                console.log("here");
-
-                await signIn("google", { redirectTo: "/v1/home" });
-              }}
-            >
+            <form action={signInAction}>
               <button
                 type="submit "
                 className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"

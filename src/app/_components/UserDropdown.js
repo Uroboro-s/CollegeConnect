@@ -1,8 +1,9 @@
 import Link from "next/link";
 
-import { auth, signOut } from "@/app/_lib/auth";
+import { auth } from "@/app/_lib/auth";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { signOutAction } from "../_lib/actions";
 
 async function UserDropdown() {
   const session = await auth();
@@ -32,12 +33,7 @@ async function UserDropdown() {
         <li className="transition ease-in-out delay-150 duration-150 text-base p-3 rounded-b-md hover:bg-blue-700 hover:text-white">
           {
             session?.user ? (
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/v1" });
-                }}
-              >
+              <form action={signOutAction}>
                 <button type="submit" className="w-full text-left">
                   Sign Out
                 </button>

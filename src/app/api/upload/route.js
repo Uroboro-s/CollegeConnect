@@ -20,8 +20,6 @@ export async function POST(req) {
 
     const res = await uploadToCloudinary(fileUri, file.name);
 
-    console.log(res);
-
     if (res.success && res.result) {
       return NextResponse.json({
         message: "success",

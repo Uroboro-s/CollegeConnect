@@ -140,3 +140,14 @@ export async function getClub(id) {
 
   return { clubName: data.name };
 }
+
+export async function getClubs() {
+  let { data, error } = await supabase.from("Club").select("name, id");
+
+  if (error) {
+    console.log(error);
+    throw new Error("Club name failed to fetch!");
+  }
+
+  return data;
+}
