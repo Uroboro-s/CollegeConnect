@@ -15,6 +15,13 @@ export const metadata = {
 function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          defer
+          src="https://widget.cloudinary.com/v2.0/global/all.js"
+          type="text/javascript"
+        ></script>
+      </head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         {children}
       </body>
