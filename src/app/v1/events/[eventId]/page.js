@@ -1,6 +1,8 @@
 import { auth } from "@/app/_lib/auth";
 import Image from "next/image";
 
+import NoImage from "../../../../../public/noimagefound.jpg";
+
 import { getBannerName, getClub, getEvent } from "@/app/_lib/data_service";
 import { TrashIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
 
@@ -11,10 +13,8 @@ export async function generateMetadata({ params }) {
 
 async function Page({ params }) {
   const eventId = params.eventId;
-  // console.log(eventId);
 
   const session = await auth();
-  console.log(session);
 
   const {
     name,
@@ -34,13 +34,16 @@ async function Page({ params }) {
 
   let bannerObj;
   if (banner) bannerObj = await getBannerName(banner);
-  // console.log(event);
 
   return (
     <div className="h-full">
       <section className="flex flex-1 px-4 py-4">
         <div className="relative w-[544px] h-[544px] overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-          <Image src={image} fill className="object-cover" alt={name} />
+          {image ? (
+            <Image src={image} fill className="object-cover" alt={name} />
+          ) : (
+            <Image src={NoImage} fill className="object-cover" alt="no-image" />
+          )}
         </div>
         <div className="ml-8 mt-1">
           {banner && <span>Part of {bannerObj.name}</span>}
