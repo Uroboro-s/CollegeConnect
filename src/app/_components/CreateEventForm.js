@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createEvent } from "../_lib/actions";
+import { createEventAction } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
 
 function CreateEventForm({ clubs }) {
@@ -24,7 +24,7 @@ function CreateEventForm({ clubs }) {
   }
   return (
     <form
-      action={createEvent}
+      action={createEventAction}
       className="bg-gray-200 py-8 px-12 text-lg flex gap-6 flex-col"
       // encType="multipart/form-data"
     >

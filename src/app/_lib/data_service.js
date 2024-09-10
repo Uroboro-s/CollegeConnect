@@ -151,3 +151,41 @@ export async function getClubs() {
 
   return data;
 }
+
+export async function createEvent(newEvent) {
+  console.log(newEvent);
+
+  const { data, error } = await supabase
+    .from("Event")
+    .insert([newEvent])
+    .select()
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Event couldn't be created!");
+  }
+
+  return data;
+}
+
+export async function uploadImage(formData) {
+  try {
+    const res = await fetch("http://localhost:3000/api/upload", {
+      method: "POST",
+      body: formData,
+      // headers: {
+      //   // add token
+      //   // content-type will be auto-handled and set to multipart/form-data
+      // },
+    });
+    const data = await res.json();
+    // console.log(data);
+    //data is successful!
+    // we will return the uploaded image URL from the API to the client
+    console.log(data.imgUrl);
+    return data.imgUrl;
+  } catch (error) {
+    throw new Error("error in uploading image");
+  }
+}
