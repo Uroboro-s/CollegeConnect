@@ -2,7 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { signIn, signOut } from "./auth";
-import { createEvent, uploadImage } from "./data_service";
+import { createEvent, createUpdate, uploadImage } from "./data_service";
+import { revalidatePath } from "next/cache";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/v1/home" });
@@ -40,3 +41,19 @@ export async function createEventAction(formData) {
 }
 
 // export async function checkEventStatus
+
+export async function createUpdateAction(eventId, formData) {
+  // console.log(typeof eventId);
+  // console.log(formData);
+
+  const newUpdate = {
+    date: formData.get("date"),
+    time: formData.get("time"),
+    event: Number(eventId),
+    message: formData.get("message"),
+  };
+
+  const data = await createUpdate(newUpdate);
+
+  revalidatePath(`/v1/events/${eventId}`);
+}

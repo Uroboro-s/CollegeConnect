@@ -200,3 +200,31 @@ export async function getRoles(role) {
 
   return data;
 }
+
+export async function getUpdates(id) {
+  const { data, error } = await supabase
+    .from("Update")
+    .select("*")
+    .eq("event", id);
+
+  if (error) {
+    throw new Error("Updates couldn't be fetched!");
+  }
+
+  return data;
+}
+
+export async function createUpdate(newUpdate) {
+  // console.log(newUpdate);
+
+  const { data, error } = await supabase
+    .from("Update")
+    .insert([newUpdate])
+    .select();
+
+  if (error) {
+    throw new Error("Couldn't create update!");
+  }
+
+  return data;
+}

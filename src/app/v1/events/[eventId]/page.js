@@ -5,6 +5,8 @@ import NoImage from "../../../../../public/noimagefound.jpg";
 
 import { getBannerName, getClub, getEvent } from "@/app/_lib/data_service";
 import { TrashIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
+import UpdatesSection from "@/app/_components/UpdatesSection";
+import UpdatesList from "@/app/_components/UpdatesList";
 
 export async function generateMetadata({ params }) {
   // const { name } = await getCabin(params.cabinId);
@@ -66,16 +68,9 @@ async function Page({ params }) {
         <h1 className="text-3xl font-bold">Description</h1>
         <p className="text-xl">{description}</p>
       </section>
-      <section className="px-4 py-4">
-        <h1 className="text-3xl font-bold">Updates</h1>
-        <ul className="text-xl">
-          <li>event 10pm</li>
-          <li>event 6pm</li>
-          <li>event 3pm</li>
-          <li>event 9am</li>
-          <li>event 4am</li>
-        </ul>
-      </section>
+      <UpdatesSection eventId={eventId}>
+        <UpdatesList eventId={eventId} />
+      </UpdatesSection>
     </div>
   );
 }
@@ -83,6 +78,6 @@ async function Page({ params }) {
 //have to add link to the bannerObj.name(AdVITya) part
 //have to add link to the clubname part
 //add link at reg_link part
-//add suspense inside updates after establishing websocket connection
+//add suspense inside updates after establishing (websocket??) connection
 
 export default Page;
