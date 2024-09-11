@@ -38,3 +38,5 @@ export async function createEventAction(formData) {
   console.log(data);
   redirect(`/v1/events/${data.id}`);
 }
+
+// export async function checkEventStatus

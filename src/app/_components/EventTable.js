@@ -1,15 +1,7 @@
-import { getPaginatedEvents } from "@/app/_lib/data_service";
+import { getPaginatedEvents } from "../_lib/data_service";
+import Pagination from "./Pagination";
 
-import Searchbar from "@/app/_components/Searchbar";
-import Pagination from "@/app/_components/Pagination";
-import Link from "next/link";
-import { auth } from "@/app/_lib/auth";
-
-const PAGE_SIZE = 10;
-
-async function Page({ searchParams }) {
-  const session = await auth();
-  // console.log(session);
+async function EventTable({ PAGE_SIZE, searchParams }) {
   const currentPage = !searchParams.page ? 1 : Number(searchParams.page);
 
   const { data: events, count } = await getPaginatedEvents(
@@ -19,17 +11,6 @@ async function Page({ searchParams }) {
 
   return (
     <>
-      <div className="flex justify-end items-center p-6">
-        <Searchbar />
-        {session.user.isAdmin && (
-          <Link
-            href="/v1/events/createevent"
-            className="h-full p-2 rounded-md ml-4 bg-slate-50 hover:bg-blue-700 hover:text-white"
-          >
-            Create event
-          </Link>
-        )}
-      </div>
       <div className="flex flex-col justify-center p-6">
         <table className="border border-1 text-lg">
           <thead>
@@ -61,6 +42,4 @@ async function Page({ searchParams }) {
   );
 }
 
-//have to add pagination here with all events
-
-export default Page;
+export default EventTable;

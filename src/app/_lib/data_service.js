@@ -189,3 +189,14 @@ export async function uploadImage(formData) {
     throw new Error("error in uploading image");
   }
 }
+
+export async function getRoles(role) {
+  const { data, error } = await supabase
+    .from("Access")
+    .select("user_email")
+    .eq("role", role);
+
+  if (error) throw new Error("Roles couldn't be fetched!");
+
+  return data;
+}

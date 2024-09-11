@@ -14,11 +14,11 @@ function Pagination({ count, PAGE_SIZE }) {
     ? 1
     : Number(searchParams.get("page"));
 
-  console.log("currentPage:" + currentPage);
+  // console.log("currentPage:" + currentPage);
 
   const pageCount = Math.ceil(count / PAGE_SIZE);
 
-  console.log("pageCount: " + pageCount);
+  // console.log("pageCount: " + pageCount);
 
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;

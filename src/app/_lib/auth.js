@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
-import { createUser, getUser } from "./data_service";
+import { createUser, getRoles, getUser } from "./data_service";
 
 const authConfig = {
   providers: [
@@ -34,7 +34,14 @@ const authConfig = {
     },
     async session({ session, user }) {
       const currUser = await getUser(session.user.email);
-      // console.log(currUser);
+      const admins = await getRoles("admin");
+      // console.log(admins);
+      const filtered = admins.filter(
+        (admin) => admin.user_email === session.user.email
+      );
+      // console.log(filtered);
+      if (filtered.length != 0) session.user.isAdmin = true;
+      else session.user.isAdmin = false;
       session.user.id = currUser.id;
       return session;
     },
