@@ -8,22 +8,34 @@ import { getCurrentDate } from "../_utils/utils";
 import Spinner from "./Spinner";
 import {
   ArrowDownIcon,
+  ArrowPathIcon,
   ArrowRightIcon,
   MinusCircleIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 function UpdatesSection({ eventId, children }) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const createUpdateActionWithEventId = createUpdateAction.bind(null, eventId);
   //so that event id as well as default props
   //formData can be passes to the action
 
+  function handleRefresh() {
+    router.refresh();
+  }
+
   return (
     <section className="px-4 py-4">
       <div className="flex flex-row gap-6">
         <h1 className="text-3xl font-bold">Updates</h1>
+        <button onClick={handleRefresh}>
+          <ArrowPathIcon className="w-8 h-8" />
+        </button>
+      </div>
+      <Suspense fallback={<Spinner />}>
         <button onClick={() => setIsOpen(!isOpen)}>
           {!isOpen && <PlusCircleIcon className="w-8 h-8" />}
           {isOpen && <MinusCircleIcon className="w-8 h-8 transition-all" />}
@@ -33,8 +45,6 @@ function UpdatesSection({ eventId, children }) {
             {isOpen && <ArrowDownIcon className="w-8 h-8" />}
           </span> */}
         </button>
-      </div>
-      <Suspense fallback={<Spinner />}>
         {isOpen && (
           <form
             action={createUpdateActionWithEventId}
