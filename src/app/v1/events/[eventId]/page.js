@@ -32,7 +32,7 @@ async function Page({ params }) {
     banner,
   } = await getEvent(eventId);
 
-  const { clubName } = await getClub(organized_by);
+  const club = await getClub(organized_by);
 
   let bannerObj;
   if (banner) bannerObj = await getBannerName(banner);
@@ -50,7 +50,7 @@ async function Page({ params }) {
         <div className="ml-8 mt-1">
           {banner && <span>Part of {bannerObj.name}</span>}
           <h1 className="text-4xl font-bold">{name}</h1>
-          <p className="text-sm">Organized by {clubName}</p>
+          <p className="text-sm">Organized by {club.clubName}</p>
           <p>
             From {start_date} to {end_date}
           </p>
@@ -68,7 +68,7 @@ async function Page({ params }) {
         <h1 className="text-3xl font-bold">Description</h1>
         <p className="text-xl">{description}</p>
       </section>
-      <UpdatesSection eventId={eventId}>
+      <UpdatesSection eventId={eventId} currentUser={session.user} club={club}>
         <UpdatesList eventId={eventId} />
       </UpdatesSection>
     </div>

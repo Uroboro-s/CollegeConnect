@@ -15,7 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
-function UpdatesSection({ eventId, children }) {
+function UpdatesSection({ eventId, children, currentUser, club }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -27,6 +27,10 @@ function UpdatesSection({ eventId, children }) {
     router.refresh();
   }
 
+  const updateAdditionAllowed =
+    currentUser.email === club.president ||
+    currentUser.email === club.vice_president;
+
   return (
     <section className="px-4 py-4">
       <div className="flex flex-row gap-6">
@@ -36,15 +40,17 @@ function UpdatesSection({ eventId, children }) {
         </button>
       </div>
       <Suspense fallback={<Spinner />}>
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {!isOpen && <PlusCircleIcon className="w-8 h-8" />}
-          {isOpen && <MinusCircleIcon className="w-8 h-8 transition-all" />}
-          {/* Add update
+        {updateAdditionAllowed && (
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {!isOpen && <PlusCircleIcon className="w-8 h-8" />}
+            {isOpen && <MinusCircleIcon className="w-8 h-8 transition-all" />}
+            {/* Add update
           <span>
             {!isOpen && <ArrowRightIcon className="w-8 h-8" />}
             {isOpen && <ArrowDownIcon className="w-8 h-8" />}
           </span> */}
-        </button>
+          </button>
+        )}
         {isOpen && (
           <form
             action={createUpdateActionWithEventId}
