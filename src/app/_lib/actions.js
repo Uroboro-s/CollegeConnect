@@ -2,7 +2,12 @@
 
 import { redirect } from "next/navigation";
 import { signIn, signOut } from "./auth";
-import { createEvent, createUpdate, uploadImage } from "./data_service";
+import {
+  createEvent,
+  createUpdate,
+  updateProfile,
+  uploadImage,
+} from "./data_service";
 import { revalidatePath } from "next/cache";
 
 export async function signInAction() {
@@ -56,4 +61,21 @@ export async function createUpdateAction(eventId, formData) {
   const data = await createUpdate(newUpdate);
 
   revalidatePath(`/v1/events/${eventId}`);
+}
+
+export async function updateProfileAction(formData) {
+  console.log(formData);
+
+  const name =
+    formData.get("first_name") +
+    " " +
+    (formData.get("middle_name") === ""
+      ? ""
+      : formData.get("middle_name") + " ") +
+    formData.get("last_name");
+  let imgUrl = undefined;
+
+  if (formData.get("image").size != 0) imgUrl = await uploadImage(formData);
+
+  await updateProfile(name, imgUrl && imgUrl, formData.get("user_id"));
 }

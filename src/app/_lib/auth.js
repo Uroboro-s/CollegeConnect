@@ -42,7 +42,9 @@ const authConfig = {
       // console.log(filtered);
       if (filtered.length != 0) session.user.isAdmin = true;
       else session.user.isAdmin = false;
+
       session.user.id = currUser.id;
+
       return session;
     },
   },

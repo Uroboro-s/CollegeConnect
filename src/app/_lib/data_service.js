@@ -228,3 +228,18 @@ export async function createUpdate(newUpdate) {
 
   return data;
 }
+
+export async function updateProfile(name, image, id) {
+  console.log(name + " " + id);
+
+  const { data, error } = await supabase
+    .from("User")
+    .update({ name: name })
+    .eq("id", id);
+
+  if (error) {
+    throw new Error("Couldn't update user profile!");
+  }
+
+  return data;
+}
