@@ -1,14 +1,19 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+
 import { signIn, signOut } from "./auth";
 import {
+  createAccount,
   createEvent,
   createUpdate,
+  getAccount,
+  updateAccount,
   updateProfile,
   uploadImage,
 } from "./data_service";
-import { revalidatePath } from "next/cache";
+import hashPassword from "./hashPassword";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/v1/home" });
@@ -45,8 +50,6 @@ export async function createEventAction(formData) {
   redirect(`/v1/events/${data.id}`);
 }
 
-// export async function checkEventStatus
-
 export async function createUpdateAction(eventId, formData) {
   // console.log(typeof eventId);
   // console.log(formData);
@@ -78,4 +81,23 @@ export async function updateProfileAction(formData) {
   if (formData.get("image").size != 0) imgUrl = await uploadImage(formData);
 
   await updateProfile(name, imgUrl && imgUrl, formData.get("user_id"));
+}
+
+export async function updateSecurityAction(formData) {
+  const accountData = await getAccount(formData.get("user_id"));
+
+  // console.log(accountData);
+  const hashedPassword = await hashPassword(formData.get("password"));
+
+  // console.log(hashedPassword);
+
+  if (accountData.length == 0) {
+    console.log("hererere");
+    await createAccount({
+      user: formData.get("user_id"),
+      hashedPassword,
+    });
+  } else {
+    await updateAccount(formData.get("user_id"), hashedPassword);
+  }
 }

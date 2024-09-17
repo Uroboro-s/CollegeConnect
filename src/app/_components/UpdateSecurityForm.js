@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import SubmitButton from "@/app/_components/SubmitButton";
 import { checkPassword } from "../_utils/utils";
+import { updateSecurityAction } from "../_lib/actions";
 
 function UpdateSecurityForm({ user }) {
   const [password, setPassword] = useState("");
@@ -29,9 +30,7 @@ function UpdateSecurityForm({ user }) {
     [password, confirmPassword]
   );
 
-  function updateSecurityAction() {
-    console.log("here");
-  }
+  console.log(user);
 
   return (
     <form
@@ -58,7 +57,7 @@ function UpdateSecurityForm({ user }) {
         />
       </div>
       <p className="text-xs text-red-600">{message}</p>
-      {/* <input type="hidden" name="user_id" value={user.id} /> */}
+      <input type="hidden" name="user_id" value={user.id} />
 
       <div className="flex justify-end items-center gap-6">
         <SubmitButton pendingLabel="Updating..." disabled={isDisabled}>

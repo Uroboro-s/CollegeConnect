@@ -243,3 +243,41 @@ export async function updateProfile(name, image, id) {
 
   return data;
 }
+
+export async function getAccount(user_id) {
+  const { data, error } = await supabase
+    .from("Account")
+    .select("*")
+    .eq("user", user_id);
+
+  if (error) {
+    throw new Error("Couldn't get account!");
+  }
+
+  return data;
+}
+export async function createAccount(account) {
+  const { data, error } = await supabase
+    .from("Account")
+    .insert([account])
+    .select();
+
+  if (error) {
+    throw new Error("Couldn't create account!");
+  }
+
+  return data;
+}
+export async function updateAccount(user, hashedPassword) {
+  const { data, error } = await supabase
+    .from("Account")
+    .update({ hashedPassword })
+    .eq("user", user)
+    .select();
+
+  if (error) {
+    throw new Error("Couldn't update account!");
+  }
+
+  return data;
+}
