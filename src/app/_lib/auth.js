@@ -34,6 +34,8 @@ const authConfig = {
     },
     async session({ session, user }) {
       const currUser = await getUser(session.user.email);
+      // console.log(currUser);
+      // console.log(user);
       const admins = await getRoles("admin");
       // console.log(admins);
       const filtered = admins.filter(
@@ -44,6 +46,8 @@ const authConfig = {
       else session.user.isAdmin = false;
 
       session.user.id = currUser.id;
+
+      session.curr_user = currUser;
 
       return session;
     },

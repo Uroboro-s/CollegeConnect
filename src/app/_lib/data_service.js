@@ -183,7 +183,7 @@ export async function uploadImage(formData) {
     // console.log(data);
     //data is successful!
     // we will return the uploaded image URL from the API to the client
-    console.log(data.imgUrl);
+    // console.log(data.imgUrl);
     return data.imgUrl;
   } catch (error) {
     throw new Error("error in uploading image");
@@ -234,7 +234,7 @@ export async function updateProfile(name, image, id) {
 
   const { data, error } = await supabase
     .from("User")
-    .update({ name: name })
+    .update({ name: name, image: image })
     .eq("id", id);
 
   if (error) {

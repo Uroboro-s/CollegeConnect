@@ -7,7 +7,7 @@ import { updateProfileAction } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
 
 function UpdateProfileForm({ user }) {
-  console.log(user);
+  // console.log(user);
   const splitArray = user.name.split(" ");
   const first = splitArray[0];
   const last = splitArray[splitArray.length - 1];
@@ -50,6 +50,7 @@ function UpdateProfileForm({ user }) {
         break;
       default:
         setFileMessage("*Invalid file type");
+        setIsDisabled(true);
     }
   }
 
@@ -105,6 +106,7 @@ function UpdateProfileForm({ user }) {
         <p className="text-xs text-red-600">{fileMessage}</p>
       </div>
       <input type="hidden" name="user_id" value={user.id} />
+      <input type="hidden" name="folder_name" value="profile" />
 
       <div className="flex justify-end items-center gap-6">
         <SubmitButton pendingLabel="Updating..." disabled={isDisabled}>

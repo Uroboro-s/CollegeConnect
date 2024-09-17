@@ -25,6 +25,7 @@ async function Page({ searchParams }) {
           <Link
             href="/v1/events/createevent"
             className="h-full p-2 rounded-md ml-4 bg-slate-50 hover:bg-blue-700 hover:text-white"
+            prefetch={false}
           >
             Create event
           </Link>

@@ -64,7 +64,7 @@ export async function createUpdateAction(eventId, formData) {
 }
 
 export async function updateProfileAction(formData) {
-  console.log(formData);
+  // console.log(formData);
 
   const name =
     formData.get("first_name") +

@@ -7,7 +7,8 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
     const file = formData.get("image");
-    // console.log(file);
+    const folder_name = formData.get("folder_name");
+    // console.log(folder_name);
 
     const fileBuffer = await file.arrayBuffer();
 
@@ -18,7 +19,7 @@ export async function POST(req) {
     // this will be used to upload the file
     const fileUri = "data:" + mimeType + ";" + encoding + "," + base64Data;
 
-    const res = await uploadToCloudinary(fileUri, file.name);
+    const res = await uploadToCloudinary(fileUri, file.name, folder_name);
 
     if (res.success && res.result) {
       return NextResponse.json({

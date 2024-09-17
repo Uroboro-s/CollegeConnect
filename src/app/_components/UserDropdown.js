@@ -13,11 +13,13 @@ async function UserDropdown() {
       <summary className="btn m-1 relative block">
         {session?.user?.image ? (
           <Image
-            src={session.user.image}
+            src={
+              session.curr_user ? session.curr_user.image : session.user.image
+            }
             width={8}
             height={8}
             className="h-8 w-8 rounded-full "
-            alt={session.user.name}
+            alt={session.curr_user.name}
           />
         ) : (
           <UserIcon className="h-8 w-8 border-2 rounded-2xl border-black" />
