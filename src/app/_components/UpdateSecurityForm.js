@@ -30,7 +30,7 @@ function UpdateSecurityForm({ user }) {
     [password, confirmPassword]
   );
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <form

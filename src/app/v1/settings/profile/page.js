@@ -9,7 +9,7 @@ async function Page() {
   // const user = await getUser(session.user.email);
   // console.log(session);
 
-  return <UpdateProfileForm user={session.curr_user} />;
+  return <UpdateProfileForm user={session.user} />;
 }
 
 export default Page;

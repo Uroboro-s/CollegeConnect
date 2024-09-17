@@ -9,6 +9,7 @@ import {
   createEvent,
   createUpdate,
   getAccount,
+  getUser,
   updateAccount,
   updateProfile,
   uploadImage,
@@ -100,4 +101,14 @@ export async function updateSecurityAction(formData) {
   } else {
     await updateAccount(formData.get("user_id"), hashedPassword);
   }
+}
+
+export async function loginFormAction(formData) {
+  // console.log(formData);
+
+  await signIn("credentials", formData);
+
+  // const user = await getUser(formData.get("email"));
+
+  // if (!user) console.log("user doesnot exist!!");
 }
