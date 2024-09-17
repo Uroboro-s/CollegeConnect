@@ -35,3 +35,21 @@ export function getCurrentDate() {
 
   return formattedDate;
 }
+
+export function checkPassword(password) {
+  let lowerCase = false;
+  let upperCase = false;
+  let number = false;
+  let symbol = false;
+
+  if (
+    password.length < 8 ||
+    password.length > 24 ||
+    password.search(/\d/) == -1 ||
+    password.search(/[a-zA-Z]/) == -1 ||
+    password.search(/[\@\#\_\*]/) == -1
+  ) {
+    return false;
+  }
+  return true;
+}

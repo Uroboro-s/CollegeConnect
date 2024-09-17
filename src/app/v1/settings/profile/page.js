@@ -1,5 +1,4 @@
 import { auth } from "@/app/_lib/auth";
-import { getUser } from "@/app/_lib/data_service";
 
 const {
   default: UpdateProfileForm,
