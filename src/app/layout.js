@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 
 import "@/app/_styles/globals.css";
+import ToastProvider from "./_components/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,14 +17,14 @@ function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <script
+        {/* <script
           defer
           src="https://widget.cloudinary.com/v2.0/global/all.js"
           type="text/javascript"
-        ></script>
+        ></script> */}
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );

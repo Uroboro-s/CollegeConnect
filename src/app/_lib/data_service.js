@@ -129,7 +129,7 @@ export async function getBannerName(id) {
 export async function getClub(id) {
   let { data, error } = await supabase
     .from("Club")
-    .select("name")
+    .select("*")
     .eq("id", id)
     .single();
 
@@ -138,7 +138,7 @@ export async function getClub(id) {
     throw new Error("Club name failed to fetch!");
   }
 
-  return { clubName: data.name };
+  return data;
 }
 
 export async function getClubs() {

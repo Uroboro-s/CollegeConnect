@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export function convertDate(date_str) {
   let months = [
     "January",
@@ -31,7 +33,7 @@ export function getCurrentDate() {
   const yyyy = today.getFullYear();
 
   const formattedDate = yyyy + "-" + mm + "-" + dd;
-  console.log(formattedDate);
+  // console.log(formattedDate);
 
   return formattedDate;
 }
@@ -52,4 +54,15 @@ export function checkPassword(password) {
     return false;
   }
   return true;
+}
+
+export function showToast(type, message) {
+  switch (type) {
+    case "success":
+      toast.success(message);
+      break;
+    case "error":
+      toast.error(message);
+      break;
+  }
 }

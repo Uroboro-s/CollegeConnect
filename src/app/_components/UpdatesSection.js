@@ -1,35 +1,54 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
+// import {useFormState } from "react-dom";
 
 import { createUpdateAction } from "../_lib/actions";
-import { getCurrentDate } from "../_utils/utils";
+import { getCurrentDate, showToast } from "../_utils/utils";
 
 import Spinner from "./Spinner";
 import {
-  ArrowDownIcon,
   ArrowPathIcon,
-  ArrowRightIcon,
   MinusCircleIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import { Bounce, toast } from "react-toastify";
+import CreateUpdateForm from "./CreateUpdateForm";
 
 function UpdatesSection({ eventId, children, currentUser, club }) {
   const [isOpen, setIsOpen] = useState(false);
+  // const [state, formAction] = useFormState(createUpdateAction, initialState);
+  //not working smh
+
   const router = useRouter();
 
-  const createUpdateActionWithEventId = createUpdateAction.bind(null, eventId);
+  // const createUpdateActionWithEventId = createUpdateAction.bind(null, eventId);
   //so that event id as well as default props
   //formData can be passes to the action
 
   function handleRefresh() {
     router.refresh();
+    showToast("success", "Refreshed!");
+    // toast.success("Refreshed!");
   }
 
+  // , {
+  //   position: "top-right",
+  //   autoClose: 5000,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: "light",
+  //   transition: Bounce,
+  // }
+
   const updateAdditionAllowed =
-    currentUser.email === club.president ||
-    currentUser.email === club.vice_president;
+    currentUser.id === club.president || currentUser.id === club.vice_president;
+  // console.log(club.vice_president);
 
   return (
     <section className="px-4 py-4">
@@ -44,28 +63,9 @@ function UpdatesSection({ eventId, children, currentUser, club }) {
           <button onClick={() => setIsOpen(!isOpen)}>
             {!isOpen && <PlusCircleIcon className="w-8 h-8" />}
             {isOpen && <MinusCircleIcon className="w-8 h-8 transition-all" />}
-            {/* Add update
-          <span>
-            {!isOpen && <ArrowRightIcon className="w-8 h-8" />}
-            {isOpen && <ArrowDownIcon className="w-8 h-8" />}
-          </span> */}
           </button>
         )}
-        {isOpen && (
-          <form
-            action={createUpdateActionWithEventId}
-            className="bg-blue-200 flex flex-row mb-2"
-          >
-            <div className="border-r-2 border-black p-2 flex flex-col justify-center w-52 ">
-              <input type="date" name="date" defaultValue={getCurrentDate()} />
-              <input type="time" step="1" name="time" defaultValue="00:00:00" />
-            </div>
-            <div className="p-2 pl-4 ">
-              <textarea name="message" placeholder="Write your message here!" />
-            </div>
-            <button type="submit">Create</button>
-          </form>
-        )}
+        {isOpen && <CreateUpdateForm eventId={eventId} />}
         {children}
       </Suspense>
     </section>

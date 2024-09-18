@@ -34,6 +34,8 @@ async function Page({ params }) {
 
   const club = await getClub(organized_by);
 
+  // console.log(club);
+
   let bannerObj;
   if (banner) bannerObj = await getBannerName(banner);
 

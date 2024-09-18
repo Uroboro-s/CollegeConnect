@@ -51,20 +51,24 @@ export async function createEventAction(formData) {
   redirect(`/v1/events/${data.id}`);
 }
 
-export async function createUpdateAction(eventId, formData) {
+export async function createUpdateAction(formData) {
   // console.log(typeof eventId);
-  // console.log(formData);
+  console.log(formData);
 
   const newUpdate = {
     date: formData.get("date"),
     time: formData.get("time"),
-    event: Number(eventId),
+    event: Number(formData.get("eventId")),
     message: formData.get("message"),
   };
 
-  const data = await createUpdate(newUpdate);
-
-  revalidatePath(`/v1/events/${eventId}`);
+  try {
+    const data = await createUpdate(newUpdate);
+    revalidatePath(`/v1/events/${formData.get("eventId")}`);
+    return { type: "success", message: "Update created successfully" };
+  } catch (err) {
+    return { type: "error", message: "Error" };
+  }
 }
 
 export async function updateProfileAction(formData) {
