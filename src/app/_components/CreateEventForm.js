@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { createEventAction } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
+import { showToast } from "../_utils/utils";
+import { redirect } from "next/navigation";
 
 function CreateEventForm({ clubs }) {
   const [fileMessage, setFileMessage] = useState("");
@@ -22,9 +24,18 @@ function CreateEventForm({ clubs }) {
         setFileMessage("*Invalid file type");
     }
   }
+
+  async function handleFormSubmit(formData) {
+    const data = await createEventAction(formData);
+
+    showToast(data.type, data.message);
+
+    if (data.redirectPath) redirect(data.redirectPath);
+  }
+
   return (
     <form
-      action={createEventAction}
+      action={handleFormSubmit}
       className="bg-gray-200 py-8 px-12 text-lg flex gap-6 flex-col"
       // encType="multipart/form-data"
     >

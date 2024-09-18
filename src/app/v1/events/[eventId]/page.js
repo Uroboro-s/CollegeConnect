@@ -34,7 +34,7 @@ async function Page({ params }) {
 
   const club = await getClub(organized_by);
 
-  // console.log(club);
+  console.log(club);
 
   let bannerObj;
   if (banner) bannerObj = await getBannerName(banner);
@@ -52,7 +52,7 @@ async function Page({ params }) {
         <div className="ml-8 mt-1">
           {banner && <span>Part of {bannerObj.name}</span>}
           <h1 className="text-4xl font-bold">{name}</h1>
-          <p className="text-sm">Organized by {club.clubName}</p>
+          <p className="text-sm">Organized by {club.name}</p>
           <p>
             From {start_date} to {end_date}
           </p>

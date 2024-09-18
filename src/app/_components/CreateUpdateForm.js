@@ -1,5 +1,6 @@
 import { createUpdateAction } from "../_lib/actions";
 import { getCurrentDate, showToast } from "../_utils/utils";
+import SubmitButton from "./SubmitButton";
 
 function CreateUpdateForm({ eventId }) {
   async function handleFormSubmit(formData) {
@@ -18,7 +19,7 @@ function CreateUpdateForm({ eventId }) {
       </div>
       <input type="hidden" name="eventId" value={eventId} />
 
-      <button type="submit">Create </button>
+      <SubmitButton>Create</SubmitButton>
     </form>
   );
 }

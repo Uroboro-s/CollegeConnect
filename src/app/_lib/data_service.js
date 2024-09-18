@@ -153,7 +153,7 @@ export async function getClubs() {
 }
 
 export async function createEvent(newEvent) {
-  console.log(newEvent);
+  // console.log(newEvent);
 
   const { data, error } = await supabase
     .from("Event")

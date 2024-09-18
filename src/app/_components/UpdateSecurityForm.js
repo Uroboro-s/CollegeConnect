@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import SubmitButton from "@/app/_components/SubmitButton";
-import { checkPassword } from "../_utils/utils";
+import { checkPassword, showToast } from "../_utils/utils";
 import { updateSecurityAction } from "../_lib/actions";
 
 function UpdateSecurityForm({ user }) {
@@ -31,10 +31,15 @@ function UpdateSecurityForm({ user }) {
   );
 
   // console.log(user);
+  async function handleFormSubmit(formData) {
+    const data = await updateSecurityAction(formData);
+
+    showToast(data.type, data.message);
+  }
 
   return (
     <form
-      action={updateSecurityAction}
+      action={handleFormSubmit}
       className="bg-gray-200 py-8 px-12 text-lg flex gap-6 flex-col"
       // encType="multipart/form-data"
     >
