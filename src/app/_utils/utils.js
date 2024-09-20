@@ -56,6 +56,16 @@ export function checkPassword(password) {
   return true;
 }
 
+export function checkEmail(email) {
+  const matcher = /^[a-zA-Z0-9._%+-]+@vitbhopal\.ac\.in$/;
+
+  console.log(email);
+  console.log(email.search(matcher));
+  if (email.search(matcher) == 0) return true;
+
+  return false;
+}
+
 export function showToast(type, message) {
   switch (type) {
     case "success":

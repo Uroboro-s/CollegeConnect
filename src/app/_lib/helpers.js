@@ -1,5 +1,6 @@
 import { cloudinary } from "./cloudinary"; // your config path
 import { NextRequest } from "next/server";
+import { transporter } from "./nodemailer";
 
 const uploadToCloudinary = (fileUri, fileName, folder_name) => {
   return new Promise((resolve, reject) => {
@@ -20,4 +21,20 @@ const uploadToCloudinary = (fileUri, fileName, folder_name) => {
   });
 };
 
-export { uploadToCloudinary };
+const sendMail = (to, subject, text) => {
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to: to,
+    subject: subject,
+    text: text,
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email: ", error);
+    } else {
+      console.log("Email sent: ", info.response);
+    }
+  });
+};
+
+export { uploadToCloudinary, sendMail };

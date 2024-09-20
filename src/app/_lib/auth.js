@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { createUser, getRoles, getUser } from "./data_service";
+import { createUser, getAccount, getRoles, getUser } from "./data_service";
 
 const authConfig = {
   providers: [
@@ -44,7 +44,18 @@ const authConfig = {
       return !!auth?.user;
     },
     async signIn({ user, account, profile }) {
-      // console.log(user);
+      console.log(user);
+      if (user.password) {
+        //credntials passed
+        const existingUser = await getUser(user.email);
+        if (!existingUser) return false;
+
+        const userAccount = await getAccount(existingUser.id);
+
+        // const result = await checkPassword(user.password, userAccount.password);
+
+        return result;
+      }
       if (user && user.email.includes("@vitbhopal.ac.in")) {
         try {
           const existingUser = await getUser(user.email);
