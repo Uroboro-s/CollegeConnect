@@ -26,6 +26,7 @@ import { sendMail } from "./helpers";
 export async function signInAction() {
   await signIn("google", { redirectTo: "/v1/home" });
 }
+
 export async function signOutAction() {
   await signOut({ redirectTo: "/v1" });
 }
@@ -134,13 +135,10 @@ export async function updateSecurityAction(formData) {
 }
 
 export async function loginFormAction(formData) {
-  // console.log(formData);
+  formData.append("redirectTo", "/v1/home");
+  console.log(formData);
 
   await signIn("credentials", formData);
-
-  // const user = await getUser(formData.get("email"));
-
-  // if (!user) console.log("user doesnot exist!!");
 }
 
 export async function generateOTPAndSave(email) {
@@ -173,6 +171,7 @@ export async function generateOTPAndSave(email) {
     return { type: "error", message: "OTP generation failed!" };
   }
 }
+
 export async function verifyOTP(formData) {
   try {
     // console.log(formData);

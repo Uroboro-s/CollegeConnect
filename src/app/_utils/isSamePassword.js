@@ -1,7 +1,10 @@
-import * as bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export default async function isSamePassword(password, hashedPassword) {
-  return bcrypt.compare(password, hashedPassword, function (result) {
-    return result;
+  // console.log(password);
+  // console.log(hashedPassword);
+  return bcrypt.compare(password, hashedPassword).then((res) => {
+    // console.log(res);
+    return res;
   });
 }

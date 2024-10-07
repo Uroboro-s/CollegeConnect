@@ -3,6 +3,7 @@ import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { createUser, getAccount, getRoles, getUser } from "./data_service";
+import isSamePassword from "../_utils/isSamePassword";
 
 const authConfig = {
   providers: [
@@ -44,16 +45,21 @@ const authConfig = {
       return !!auth?.user;
     },
     async signIn({ user, account, profile }) {
-      console.log(user);
+      // console.log(user);
+
+      //credentials passed
       if (user.password) {
-        //credntials passed
         const existingUser = await getUser(user.email);
         if (!existingUser) return false;
-
+        // console.log(existingUser);
         const userAccount = await getAccount(existingUser.id);
+        // console.log(userAccount);
+        const result = await isSamePassword(
+          user.password,
+          userAccount[0].hashedPassword
+        );
 
-        // const result = await checkPassword(user.password, userAccount.password);
-
+        console.log(result);
         return result;
       }
       if (user && user.email.includes("@vitbhopal.ac.in")) {
@@ -77,9 +83,11 @@ const authConfig = {
       }
     },
     async session({ session, user }) {
-      // console.log(session);
+      console.log(session);
       const currUser = await getUser(session.user.email);
+      session.user.name = currUser.name;
       session.user.reg_no = currUser.reg_no;
+      session.user.image = currUser.image;
 
       const admins = await getRoles("admin");
 

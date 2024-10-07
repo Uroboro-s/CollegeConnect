@@ -9,7 +9,7 @@ import { showToast } from "../_utils/utils";
 
 function UpdateProfileForm({ user }) {
   // console.log(user);
-  const splitArray = user.name.split(" ");
+  const splitArray = user.name ? user.name.split(" ") : [];
   const first = splitArray[0];
   const last = splitArray[splitArray.length - 1];
   let middle = "";
