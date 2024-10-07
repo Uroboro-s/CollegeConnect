@@ -21,14 +21,14 @@ const uploadToCloudinary = (fileUri, fileName, folder_name) => {
   });
 };
 
-const sendMail = (to, subject, text) => {
+const sendMail = async (to, subject, text) => {
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to: to,
     subject: subject,
     text: text,
   };
-  transporter.sendMail(mailOptions, (error, info) => {
+  await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email: ", error);
       throw new Error("Email not sent!");
