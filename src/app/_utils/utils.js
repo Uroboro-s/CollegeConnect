@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import otpGenerator from "otp-generator";
 
 export function convertDate(date_str) {
   let months = [
@@ -74,5 +75,18 @@ export function showToast(type, message) {
     case "error":
       toast.error(message);
       break;
+    case "info":
+      toast.info(message);
+      break;
   }
+}
+
+export function generateOTP() {
+  const otp = otpGenerator.generate(6, {
+    upperCaseAlphabets: false,
+    lowerCaseAlphabets: false,
+    specialChars: false,
+  });
+
+  return otp;
 }

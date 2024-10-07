@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-import VerifyButton from "./VerifyButton";
 import { checkEmail, showToast } from "../_utils/utils";
+import { generateOTPAndSave, verifyOTP } from "../_lib/actions";
+
+import VerifyButton from "./VerifyButton";
 
 function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -18,9 +20,10 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
   );
 
   async function handleOTPGeneration(formData) {
-    const data = await generateOTP(formData.get("email"));
+    const data = await generateOTPAndSave(formData.get("email"));
     if (data) {
-      showToast("success", "OTP generated!");
+      showToast("success", "OTP generated! ");
+      showToast("info", "Please check your mail and verify it!");
       setIsGenerated(true);
     } else {
       showToast("error", "OTP generation failed!");
@@ -28,13 +31,13 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
   }
 
   async function handleOTPVerification(formData) {
-    const data = await verifyOTP(formData.get("email"), formData.get("otp"));
+    const data = await verifyOTP(formData);
 
-    if (data) {
-      showToast("success", "Verification complete!");
+    if (data.type && data.type === "success") {
+      showToast("success", data.message);
       setIsVerified(true);
     } else {
-      showToast("error", "OTP incorrect! Please try again");
+      showToast("error", data.message);
     }
   }
 
@@ -53,7 +56,9 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
               type="email"
               name="email"
               value={email}
-              disabled={isGenerated}
+              readOnly={isGenerated}
+              //cannot use disabled because it removes value of input from
+              //formData object
               onChange={(e) => setEmail(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="name@vitbhopal.ac.in"
@@ -68,7 +73,8 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
                 type="text"
                 name="otp"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@vitbhopal.ac.in"
+                placeholder="000000"
+                disabled={isVerified}
               />
               {!isVerified && <VerifyButton>Verify</VerifyButton>}
             </div>

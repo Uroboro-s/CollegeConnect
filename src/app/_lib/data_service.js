@@ -281,3 +281,42 @@ export async function updateAccount(user, hashedPassword) {
 
   return data;
 }
+
+export async function getOTP(email) {
+  const { data, error } = await supabase
+    .from("OTP")
+    .select("*")
+    .eq("email", email)
+    .maybeSingle();
+
+  if (error) throw new Error("Couldn't get otp!");
+
+  return data;
+}
+
+export async function createOTP(otp) {
+  const { data, error } = await supabase.from("OTP").insert([otp]).select();
+
+  if (error) throw new Error("Couldn't create OTP!");
+
+  return data;
+}
+export async function updateOTP(email, otp) {
+  const { data, error } = await supabase
+    .from("OTP")
+    .update({ otp: otp })
+    .eq("email", email)
+    .select()
+    .maybeSingle();
+
+  if (error) throw new Error("Couldn't update OTP!");
+
+  return data;
+}
+export async function deleteOTP(email) {
+  const { error } = await supabase.from("OTP").delete().eq("email", email);
+
+  if (error) throw new Error("Couldn't delete OTP!");
+
+  return data;
+}

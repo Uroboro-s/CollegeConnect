@@ -7,14 +7,18 @@ import { signIn, signOut } from "./auth";
 import {
   createAccount,
   createEvent,
+  createOTP,
   createUpdate,
   getAccount,
+  getOTP,
   getUser,
   updateAccount,
+  updateOTP,
   updateProfile,
   uploadImage,
 } from "./data_service";
-import hashPassword from "./hashPassword";
+import hashPassword from "../_utils/hashPassword";
+import { generateOTP } from "../_utils/utils";
 // import isSamePassword from "./isSamePassword";
 
 export async function signInAction() {
@@ -135,4 +139,55 @@ export async function loginFormAction(formData) {
   // const user = await getUser(formData.get("email"));
 
   // if (!user) console.log("user doesnot exist!!");
+}
+
+export async function generateOTPAndSave(email) {
+  try {
+    const existingOTP = await getOTP(email);
+
+    const otp = generateOTP();
+
+    // console.log(existingOTP);
+    // console.log(otp);
+    if (existingOTP.length != 0) {
+      const updatedOTP = await updateOTP(email, otp);
+      console.log(updatedOTP);
+    } else {
+      const newOTP = await createOTP({ email, otp });
+      console.log(newOTP);
+    }
+
+    return {
+      type: "success",
+      message: "OTP generated! Please check your mail and verify it!",
+    };
+  } catch (err) {
+    return { type: "error", message: "OTP generation failed!" };
+  }
+}
+export async function verifyOTP(formData) {
+  try {
+    // console.log(formData);
+
+    const formEmail = formData.get("email");
+    const formOTP = formData.get("otp");
+
+    const existingOTPobj = await getOTP(formEmail);
+
+    // console.log(existingOTPobj);
+
+    if (!existingOTPobj) throw new Error("OTPNotGenerated");
+    else if (formOTP != existingOTPobj.otp) throw new Error("InvalidOTP");
+    else return { type: "success", message: "Verification complete!" };
+  } catch (err) {
+    switch (err.message) {
+      case "OTPNotGenerated":
+        return { type: "error", message: "OTP has not been generated!" };
+      case "InvalidOTP":
+        return {
+          type: "error",
+          message: "OTP entered was incorrect! Please try again!",
+        };
+    }
+  }
 }
