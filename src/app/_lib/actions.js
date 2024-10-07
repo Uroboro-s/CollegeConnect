@@ -9,6 +9,7 @@ import {
   createEvent,
   createOTP,
   createUpdate,
+  createUser,
   getAccount,
   getOTP,
   getUser,
@@ -187,6 +188,47 @@ export async function verifyOTP(formData) {
         return {
           type: "error",
           message: "OTP entered was incorrect! Please try again!",
+        };
+      default:
+        return {
+          type: "error",
+          message:
+            "An error occured! Please try again and if the problem persists, contact us",
+        };
+    }
+  }
+}
+
+export async function createUserAccountAction(formData) {
+  console.log(formData);
+
+  try {
+    const existingUser = await getUser(formData.get("email"));
+
+    if (existingUser) return { type: "error", message: "User already exists!" };
+
+    const name = formData.get("email").split("@")[0];
+
+    const newUser = await createUser(name, formData.get("email"), undefined);
+
+    const hashedPassword = await hashPassword(formData.get("password"));
+
+    const account = {
+      user: newUser.id,
+      hashedPassword,
+    };
+
+    const newAccount = await createAccount(account);
+
+    return { type: "success", message: "Account created successfully" };
+  } catch (err) {
+    switch (err.message) {
+      case "ExistingUser":
+        return { type: "error", message: "User already exists!" };
+      default:
+        return {
+          type: "error",
+          message: "Some error occured! Try again!",
         };
     }
   }

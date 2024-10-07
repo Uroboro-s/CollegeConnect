@@ -21,6 +21,7 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
 
   async function handleOTPGeneration(formData) {
     const data = await generateOTPAndSave(formData.get("email"));
+
     if (data) {
       showToast("success", "OTP generated! ");
       showToast("info", "Please check your mail and verify it!");
