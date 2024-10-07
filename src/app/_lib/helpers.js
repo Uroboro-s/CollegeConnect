@@ -31,6 +31,7 @@ const sendMail = (to, subject, text) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email: ", error);
+      throw new Error("Email not sent!");
     } else {
       console.log("Email sent: ", info.response);
     }

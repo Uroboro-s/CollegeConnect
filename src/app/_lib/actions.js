@@ -20,6 +20,7 @@ import {
 } from "./data_service";
 import hashPassword from "../_utils/hashPassword";
 import { generateOTP } from "../_utils/utils";
+import { sendMail } from "./helpers";
 // import isSamePassword from "./isSamePassword";
 
 export async function signInAction() {
@@ -152,11 +153,17 @@ export async function generateOTPAndSave(email) {
     // console.log(otp);
     if (existingOTP.length != 0) {
       const updatedOTP = await updateOTP(email, otp);
-      console.log(updatedOTP);
     } else {
       const newOTP = await createOTP({ email, otp });
-      console.log(newOTP);
     }
+
+    const mail = await sendMail(
+      email,
+      "Account Verification",
+      `Please use ${otp} to verify your account.
+      DO NOT SHARE THIS OTP WITH ANYONE!!!
+      `
+    );
 
     return {
       type: "success",
