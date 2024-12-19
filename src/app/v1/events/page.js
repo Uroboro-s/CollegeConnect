@@ -4,6 +4,7 @@ import Searchbar from "@/app/_components/Searchbar";
 import Pagination from "@/app/_components/Pagination";
 import Link from "next/link";
 import { auth } from "@/app/_lib/auth";
+import Filters from "@/app/_components/Filters";
 
 const PAGE_SIZE = 10;
 
@@ -11,9 +12,11 @@ async function Page({ searchParams }) {
   const session = await auth();
   // console.log(session);
   const currentPage = !searchParams.page ? 1 : Number(searchParams.page);
+  const category = !searchParams.category ? "All" : searchParams.category;
 
   const { data: events, count } = await getPaginatedEvents(
     currentPage,
+    category,
     PAGE_SIZE
   );
 
@@ -32,6 +35,9 @@ async function Page({ searchParams }) {
         )}
       </div>
       <div className="flex flex-col justify-center p-6">
+        <div className="w-full justify-items-end p-4">
+          <Filters />
+        </div>
         <table className="border border-1 text-lg">
           <thead>
             <tr>

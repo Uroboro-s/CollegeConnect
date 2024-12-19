@@ -84,7 +84,7 @@ const authConfig = {
       }
     },
     async session({ session, user }) {
-      console.log(session);
+      // console.log(session);
       const currUser = await getUser(session.user.email);
       session.user.name = currUser.name;
       session.user.reg_no = currUser.reg_no;

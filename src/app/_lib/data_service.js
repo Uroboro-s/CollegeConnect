@@ -97,14 +97,25 @@ export async function getEvent(id) {
   return data;
 }
 
-export async function getPaginatedEvents(currentPage, PAGE_SIZE) {
+export async function getPaginatedEvents(currentPage, category, PAGE_SIZE) {
   const from = (currentPage - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
-  let { data, count, error } = await supabase
-    .from("Event")
-    .select("*", { count: "exact" })
-    .range(from, to);
+  let result;
+  if (category == "All") {
+    result = await supabase
+      .from("Event")
+      .select("*", { count: "exact" })
+      .range(from, to);
+  } else {
+    result = await supabase
+      .from("Event")
+      .select("*", { count: "exact" })
+      .eq("category", category)
+      .range(from, to);
+  }
+
+  let { data, count, error } = result;
 
   if (error) {
     console.log(error);
