@@ -20,6 +20,7 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
   );
 
   async function handleOTPGeneration(formData) {
+    console.log("generating otp");
     const data = await generateOTPAndSave(formData.get("email"));
 
     if (data) {
@@ -32,6 +33,7 @@ function EmailVerificationForm({ isVerified, setIsVerified, email, setEmail }) {
   }
 
   async function handleOTPVerification(formData) {
+    console.log("here?");
     const data = await verifyOTP(formData);
 
     if (data.type && data.type === "success") {

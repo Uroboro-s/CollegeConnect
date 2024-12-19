@@ -46,7 +46,7 @@ const authConfig = {
     },
     async signIn({ user, account, profile }) {
       // console.log(user);
-
+      // return true;
       //credentials passed
       if (user.password) {
         const existingUser = await getUser(user.email);
@@ -77,6 +77,7 @@ const authConfig = {
           return false;
         }
       } else {
+        console.log("hereee");
         return false;
         // Or you can return a URL to redirect to:
         // return '/unauthorized'

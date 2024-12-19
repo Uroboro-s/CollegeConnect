@@ -69,7 +69,7 @@ export async function createEventAction(formData) {
 
 export async function createUpdateAction(formData) {
   // console.log(typeof eventId);
-  console.log(formData);
+  // console.log(formData);
 
   const newUpdate = {
     date: formData.get("date"),
@@ -120,7 +120,7 @@ export async function updateSecurityAction(formData) {
     // console.log(hashedPassword);
 
     if (accountData.length == 0) {
-      console.log("hererere");
+      // console.log("hererere");
       await createAccount({
         user: formData.get("user_id"),
         hashedPassword,
@@ -136,7 +136,7 @@ export async function updateSecurityAction(formData) {
 
 export async function loginFormAction(formData) {
   formData.append("redirectTo", "/v1/home");
-  console.log(formData);
+  // console.log(formData);
 
   await signIn("credentials", formData);
 }
@@ -147,12 +147,13 @@ export async function generateOTPAndSave(email) {
 
     const otp = generateOTP();
 
-    // console.log(existingOTP);
-    // console.log(otp);
-    if (existingOTP.length != 0) {
+    console.log(existingOTP);
+    console.log(otp);
+    if (existingOTP && existingOTP.length != 0) {
       const updatedOTP = await updateOTP(email, otp);
     } else {
       const newOTP = await createOTP({ email, otp });
+      console.log("zxzxzxz");
     }
 
     const mail = await sendMail(

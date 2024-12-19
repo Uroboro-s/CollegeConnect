@@ -52,7 +52,7 @@ export async function getUpcomingEvents(category) {
   // console.log(data);
 
   if (error) {
-    console.log(error);
+    // console.log(error);
     throw new Error("Upcoming events failed to fetch!");
   }
 
@@ -73,7 +73,7 @@ export async function getRegistrableEvents() {
   // console.log(data);
 
   if (error) {
-    console.log(error);
+    // console.log(error);
     throw new Error("Upcoming events failed to fetch!");
   }
 
